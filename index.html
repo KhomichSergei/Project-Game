@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" initial-scale=1.0>
+    <title>DEEP SPACE</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    
+</head>
+
+<body> 
+<canvas id="intro"></canvas>
+
+<div id="start">
+    <canvas id="gameCanvas"></canvas>
+        <div id="gameMenu">
+            <div id="gameMenuButton">MENU</div>
+            <div id="pause">PAUSE</div>
+        </div>
+</div>
+
+<div id="menuWrapper">
+    <div id="menu">
+        <div id="title">Deep Space</div>
+        <ul>
+            <li id="startButton">Start</li>
+            <li id="recordsButton">Records</li>
+            <li id="rules">Rules:</li>
+            
+        </ul>
+        <p>Большой астероид - 20 очков <br>
+            Средний асероид - 50 очков <br>
+            Маленький астероид - 100 очков <br>
+            Управление кнопками 'вверх' 'влево' 'вправо' <br>
+            Огонь - пробел
+        </p>
+        
+    </div>
+    <div id="records">
+        <div class="wrapper">
+            <ul id="recordsList">
+            </ul>
+            <button id="recordsBackButton">Go Back</button>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="module" src="intro.js"></script>
+<script type="module" src="ship.js"></script>
+<script type="module" src="spa.js"></script>
+<script type="module" src="records.js"></script>
+
+
+</html>
