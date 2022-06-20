@@ -126,6 +126,11 @@ ul li:hover, #recordsBackButton:hover {
 p {
     text-align: center;
     color: rgb(229, 146, 21);
+    border: groove wheat 5px;
+    margin-top: 5px;
+    border-top: none; 
+    border-bottom: none; 
+    border-radius: 30px/90px;
     
 }
 
