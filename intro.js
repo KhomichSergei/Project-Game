@@ -1,19 +1,15 @@
 import {SwitchToStateFromURLHash} from "./spa.js";
 window.onhashchange = SwitchToStateFromURLHash;
-window.location.hash = "Menu";
+SwitchToStateFromURLHash()
 
 var c = document.getElementById('intro');
 var ctx = c.getContext('2d');
 var x = c.width = window.innerWidth;
 var y = c.height = window.innerHeight;
-
-window.addEventListener("resize", ()=>{
-    x = c.width = window.innerWidth;
-    y = c.height = window.innerHeight;
-})
-
 var nStar = Math.round((x + y)/5);
 var randomSize = Math.floor((Math.random()*2)+1);
+
+
 
 var stars = [];
 function createStars() {
@@ -95,6 +91,8 @@ function goToRecordsMenu(){
 export function goToMenu(){
     window.location.hash = 'Menu';
 }
+
+
 
 window.onload = function () {
     createStars();

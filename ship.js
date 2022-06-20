@@ -36,23 +36,14 @@ const saveKey = "record" // ключ для сохранеия в localStor
 const soundOn = true;
 
 
-var timer, paused;
-
-var canv = document.getElementById('gameCanvas');
-var ctx = canv.getContext('2d');
-var wc = canv.width = window.innerWidth;
-var hc = canv.height = window.innerHeight;
-
-window.addEventListener("resize", ()=>{
-    wc = canv.width = window.innerWidth;
-    hc = canv.height = window.innerHeight;
-})
+var canv, ctx, wc, hc, timer, paused;
 
 // Настройка звуковых эффектов
 var effLazer = new Sound("sounds/lazer.m4a", 5, 0.5);
 var effExplode = new Sound("sounds/explode.m4a");
 var effHit = new Sound("sounds/hit.m4a", 5);
 var effThrust = new Sound("sounds/thrust.m4a");
+
 
 //Настройка игровых параметров
 
@@ -110,10 +101,9 @@ document.addEventListener("keyup", function(EO) {
 document.getElementById('pause').addEventListener('click', pause);
 document.getElementById('gameMenuButton').addEventListener('click', goBack);
 
-window.addEventListener("resize", ()=>{
-    wc = canv.width = window.innerWidth;
-    hc = canv.height = window.innerHeight;
-})
+// анимация
+
+
 
 function createAsteroids() {
     asteroids = [];
@@ -276,7 +266,7 @@ function newGame() {
     lives = gameLives;
     score = 0;
     ship = newShip();
-    // получить лучший счет юзера из локального хранилища
+    // получить лучший счет из локального хранилища
     var scoreStr = localStorage.getItem(saveKey);
     if (scoreStr == null) {
         records = 0;
@@ -354,14 +344,13 @@ function Sound(src, maxStreams = 1, vol = 1.0) { // 1 по умолчанию
     }
 }
 
-//................... ОТРИСОВКА.........................//
-
 function update() {
 
     var blinkOn = ship.blinkNum % 2 == 0;
     var exploding = ship.explodeTime > 0;
 
     // рисуем фон космоса
+
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canv.width, canv.height);
 
@@ -533,7 +522,7 @@ function update() {
             // stopGame();
         }
     }
-    
+
     // рисуем жизни
     var lifeColor;
     for (var l = 0; l < lives; l++) {
@@ -553,7 +542,7 @@ function update() {
     ctx.textBaseline = "middle";
     ctx.fillStyle = "white";
     ctx.font = TextSize + "px dejavu sans mono";
-    ctx.fillText("YOUR BEST " + records, (canv.width - shipSize / 2) -290, shipSize);
+    ctx.fillText("BEST " + records, (canv.width - shipSize / 2) -190, shipSize);
 
     // Обнаружение попадания пульки в астероид
     var ax, ay, ar, lx, ly;
@@ -564,6 +553,7 @@ function update() {
         ay = asteroids[i].y;
         ar = asteroids[i].r;
 
+        //цикл
         for (var j = ship.lazers.length - 1; j >= 0; j--) {
 
             // захватываем свойсва выстрелов
@@ -685,8 +675,109 @@ function update() {
 }
 
 
+// window.addEventListener("resize", ()=>{
+//     wc = canv.width = window.innerWidth;
+//     hc = canv.height = window.innerHeight;
+// })
 
 
 
+////////////////////////////////////////////////////
+// var screenW,
+//     screenH,
+//     stars = [];
 
 
+// const numStars = 2000;
+
+// // Создаем звезды
+// for (let i = 0; i < numStars; i++) {
+//     let x = Math.round(Math.random() * wc);
+//     let y = Math.round(Math.random() * hc);
+//     let length = 1 + Math.random() * 2;
+//     let opacity = Math.random();
+
+//     // Создание экземпляра звезды
+//     let star = new Star(x, y, length, opacity);
+//     stars.push(star);
+// }
+// setInterval(animate, 1000 / fps);
+
+// // ============ Слой настройки компонентов ==============
+//     /**
+//      * Star
+//      *
+//      * @param int x
+//      * @param int y
+//      * @param int length
+//      * @param float opacity
+//      */
+
+//     // Звездный конструктор
+//     function Star(x, y, length, opacity) {
+//         this.x = parseInt(x);
+//         this.y = parseInt(y);
+//         this.length = parseInt(length);
+//         this.opacity = opacity;
+//         this.factor = 1;
+//         this.increment = Math.random() * 0.03;
+//     }
+
+//     // Метод прототипа объекта
+//     /**
+//            * Нарисуйте звезды
+//      *
+//      * @param ctx
+//      */
+//     Star.prototype.draw = function (ctx) {
+//         ctx.rotate(Math.PI * 1 / 10);
+
+//         //save the ctx
+//         ctx.save();
+//         //move into the middle of the canvas,just make room
+//         ctx.translate(this.x, this.y);
+//         //change the opacity
+//         if (this.opacity > 1) {
+//             this.factor = -1;
+//         } else if (this.opacity <= 0) {
+//             this.factor = 1;
+
+//             // Обновляем положение звезд один раз
+//             this.x = Math.round(Math.random() * wc);
+//             this.y = Math.round(Math.random() * hc);
+//         }
+
+//         // Фактор управляет направлением, появляется или исчезает, каждый раз, когда вы перерисовываете, прозрачность звезд меняется
+//         this.opacity += this.increment * this.factor;
+
+//         ctx.beginPath();
+//         // Рисуем линию
+//         for (var i = 5; i > 0; i--) {
+//             ctx.lineTo(0, this.length);
+//             ctx.translate(0, this.length);
+//             ctx.rotate(Math.PI * 2 / 10);
+//             ctx.lineTo(0, -this.length);
+//             ctx.translate(0, -this.length);
+//             ctx.rotate(-(Math.PI * 6 / 10));
+//         }
+
+//         ctx.lineTo(0, this.length);
+//         ctx.closePath();
+
+//         ctx.fillStyle = 'rgba(255,255,200, ' + this.opacity + ')';
+//         ctx.shadowBlur = 5;
+//         ctx.shadowColor = '#ffff33';
+//         ctx.fill();
+
+//         ctx.restore();
+//     }
+
+//     //Функция звездной вспышки
+
+//    function animate() {
+//        ctx.clearRect(0, 0, screenW, screenH);
+//        for (let i = 0; i < stars.length; i++) {
+//         stars[i].draw(ctx);
+
+//   }
+// }

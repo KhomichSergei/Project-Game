@@ -50,9 +50,10 @@ export function SwitchToStateFromURLHash() {
             break;
         case 'Records':
             changeRepresentation(state);
+            Records.setLoadingRecords(true);
             Records.getRecords().then(
                 (records) => {
-                    console.log(records);
+                    Records.setLoadingRecords(false);
                     setRecordsToTable(records);
                 }
             );
@@ -66,11 +67,9 @@ export function SwitchToStateFromURLHash() {
 }
 
 window.onbeforeunload = beforeUnload;
-var reloadMsg = 'В случае перезагрузки страницы прогресс игры будет утрачен';
+
 function beforeUnload(e) {
-    e=e || window.event;
     if (isPlaying()) {
-        e.returnValue = reloadMsg;
-        return reloadMsg;
+       return true;
     }
-}
+};

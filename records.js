@@ -1,6 +1,5 @@
 export class Records {
     static REQUEST_URL='https://deep-space-65db1-default-rtdb.europe-west1.firebasedatabase.app/records.json';
-    // хранилище доступно только 30 дней, потом надо будет заново сгенерировать ссылку
     static RECORDS_LENGTH = 10;
 
     static async getRecords() {
@@ -28,6 +27,10 @@ export class Records {
             }
 
         }
+    }
+
+    static setLoadingRecords(isLoading) {
+        document.getElementById('loader').style.display = isLoading ? "block" : "none";
     }
 
     static isReadyToSave = function (sortedRecords, score, recordsLength) {
