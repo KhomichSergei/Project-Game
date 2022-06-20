@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width" initial-scale=1.0>
     <title>DEEP SPACE</title>
     <link href="styles.css" rel="stylesheet" type="text/css" />
-    
 </head>
 
-<body> 
+<body>
+
 <canvas id="intro"></canvas>
 
 <div id="start">
@@ -27,18 +27,17 @@
             <li id="startButton">Start</li>
             <li id="recordsButton">Records</li>
             <li id="rules">Rules:</li>
-            
         </ul>
-        <p>Большой астероид - 20 очков <br>
-            Средний асероид - 50 очков <br>
-            Маленький астероид - 100 очков <br>
-            Управление кнопками 'вверх' 'влево' 'вправо' <br>
-            Огонь - пробел
+        <p>Large asteroid - 20 points <br>
+            Medium asteroid - 50 points <br>
+            Small asteroid - 100 points <br>
+            <span id="button_control">Button control: &#129044;LEFT &#129045;UP RIGHT&#10141; <br>
+            FIRE - SPACE </span>
         </p>
-        
     </div>
     <div id="records">
         <div class="wrapper">
+            <div id="loader" class="lds-dual-ring"></div>
             <ul id="recordsList">
             </ul>
             <button id="recordsBackButton">Go Back</button>
